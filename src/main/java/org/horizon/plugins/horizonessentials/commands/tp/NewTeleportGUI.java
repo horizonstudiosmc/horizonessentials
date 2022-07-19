@@ -33,6 +33,10 @@ public class NewTeleportGUI extends HorizonGUI implements Listener {
         openInv(player);
     }
 
+    public NewTeleportGUI() {
+
+    }
+
 
     @Override
     public void invClick(InventoryClickEvent event, Player player) {
@@ -49,7 +53,10 @@ public class NewTeleportGUI extends HorizonGUI implements Listener {
     @EventHandler
     public void onInvClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
+        player.sendMessage("test");
+        Bukkit.getLogger().info(event.getInventory().toString());
         if (event.getInventory() == inv) {
+            event.setCancelled(true);
             invClick(event, player);
         }
     }

@@ -11,7 +11,7 @@ import org.bukkit.event.Listener;
 import org.horizon.plugins.horizonessentials.HE;
 import org.horizon.plugins.horizonessentials.api.sound.EasySound;
 
-public class NewTeleportCommand implements CommandExecutor, Listener {
+public class NewTeleportCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
