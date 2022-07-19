@@ -12,7 +12,8 @@ public class GUIListener implements Listener {
 
     @EventHandler
     public void onClose(InventoryCloseEvent event) {
-        guiManager.removeGui(event.getInventory());
+        HorizonGUI gui = guiManager.getGui(event.getInventory());
+        gui.handleClose(event);
     }
 
     @EventHandler

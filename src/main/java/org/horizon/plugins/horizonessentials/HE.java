@@ -6,10 +6,13 @@ import org.horizon.plugins.horizonessentials.api.gui.GUIListener;
 import org.horizon.plugins.horizonessentials.api.gui.GUIManager;
 import org.horizon.plugins.horizonessentials.commands.tp.NewTeleportCommand;
 import org.horizon.plugins.horizonessentials.commands.tp.NewTeleportGUI;
+import org.horizon.plugins.horizonessentials.commands.tpa.TPACommand;
+import org.horizon.plugins.horizonessentials.commands.tpa.TeleportationManager;
 
 public class HE extends JavaPlugin {
 
     public static HE instance;
+    public static TeleportationManager teleportationManager;
     public static GUIManager manager;
 
 
@@ -18,8 +21,10 @@ public class HE extends JavaPlugin {
         // Plugin startup logic
         instance = this;
         manager = new GUIManager();
+        teleportationManager = new TeleportationManager();
         saveDefaultConfig();
         getCommand("tp").setExecutor(new NewTeleportCommand());
+        getCommand("tpa").setExecutor(new TPACommand());
         getServer().getPluginManager().registerEvents(new GUIListener(), this);
     }
 
