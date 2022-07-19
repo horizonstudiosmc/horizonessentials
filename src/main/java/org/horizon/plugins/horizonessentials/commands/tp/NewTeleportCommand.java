@@ -16,7 +16,7 @@ public class NewTeleportCommand implements CommandExecutor, Listener {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            HE he = new HE();
+            HE he = HE.instance;
 
             if (args.length == 1) {
                 if (!player.hasPermission("horizonessentials.tp")) {

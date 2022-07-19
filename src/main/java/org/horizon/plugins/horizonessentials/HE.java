@@ -6,13 +6,14 @@ import org.horizon.plugins.horizonessentials.commands.tp.NewTeleportCommand;
 
 public class HE extends JavaPlugin {
 
-    public HE() {
+    public static HE instance;
 
-    }
+
 
     @Override
     public void onEnable() {
         // Plugin startup logic
+        instance = this;
         saveDefaultConfig();
         getCommand("tp").setExecutor(new NewTeleportCommand());
         getServer().getPluginManager().registerEvents(new NewTeleportCommand(), this);
