@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.horizon.plugins.horizonessentials.HE;
+import org.horizon.plugins.horizonessentials.api.gui.GUIManager;
 import org.horizon.plugins.horizonessentials.api.sound.EasySound;
 
 public class NewTeleportCommand implements CommandExecutor {
@@ -36,6 +37,8 @@ public class NewTeleportCommand implements CommandExecutor {
 
             player.sendMessage(he.getPrefix() + ChatColor.translateAlternateColorCodes('&', "&fopened teleportation GUI, if you don't want to do this, use a argument"));
             NewTeleportGUI teleportGUI = new NewTeleportGUI(player);
+            GUIManager manager = new GUIManager();
+            manager.setGui(teleportGUI.inv, teleportGUI);
         }
         return false;
     }

@@ -5,59 +5,46 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.horizon.plugins.horizonessentials.HE;
 import org.horizon.plugins.horizonessentials.api.gui.HorizonGUI;
 import org.horizon.plugins.horizonessentials.api.sound.EasySound;
 
-public class NewTeleportGUI extends HorizonGUI implements Listener {
+public class NewTeleportGUI implements HorizonGUI {
 
+    public Inventory inv;
     public NewTeleportGUI(Player player) {
-
-
-        init(ChatColor.translateAlternateColorCodes('&', "&dPlayer Portal"), 9);
+        inv = Bukkit.createInventory(null, 18, ChatColor.translateAlternateColorCodes('&', "&dPlayer Portal"));
         for (Player p : Bukkit.getOnlinePlayers()) {
-            if (!(p == player)) {
+            if ((p == player)) {
                 ItemStack plItem = new ItemStack(Material.PLAYER_HEAD);
                 SkullMeta meta = (SkullMeta) plItem.getItemMeta();
                 meta.setDisplayName(p.getName());
                 meta.setOwningPlayer(p);
                 plItem.setItemMeta(meta);
-                addItem(plItem);
+                inv.addItem(plItem);
             }
         }
-        openInv(player);
+        player.openInventory(inv);
     }
 
-    public NewTeleportGUI() {
-
-    }
 
 
     @Override
-    public void invClick(InventoryClickEvent event, Player player) {
-        event.setCancelled(true);
-        Player pl = Bukkit.getPlayer(inv.getItem(event.getSlot()).getItemMeta().getDisplayName());
-        if (!(pl == null)) {
-            player.closeInventory();
-            player.teleport(pl);
-            EasySound.playSoundAtPlayer(player, Sound.ITEM_GOAT_HORN_SOUND_6);
-            player.sendMessage();
-        }
-    }
-
-    @EventHandler
-    public void onInvClick(InventoryClickEvent event) {
+    public void handleEvent(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         player.sendMessage("test");
         Bukkit.getLogger().info(event.getInventory().toString());
-        if (event.getInventory() == inv) {
-            event.setCancelled(true);
-            invClick(event, player);
+        event.setCancelled(true);
+        Player pl = Bukkit.getPlayer(inv.getItem(event.getSlot()).getItemMeta().getDisplayName());
+        Bukkit.getLogger().info(inv.getItem(event.getSlot()).getItemMeta().getDisplayName());
+        if (!(pl == null)) {
+            player.closeInventory();
+            player.teleport(pl);
+            EasySound.playSoundAtPlayer(player, Sound.ITEM_ARMOR_EQUIP_DIAMOND);
+            player.sendMessage();
         }
     }
 }
