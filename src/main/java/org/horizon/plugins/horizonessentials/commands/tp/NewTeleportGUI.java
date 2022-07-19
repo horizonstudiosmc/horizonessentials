@@ -18,7 +18,6 @@ public class NewTeleportGUI extends HorizonGUI implements Listener {
 
     public NewTeleportGUI(Player player) {
 
-        HE he = new HE();
 
         init(ChatColor.translateAlternateColorCodes('&', "&dPlayer Portal"), 9);
         for (Player p : Bukkit.getOnlinePlayers()) {
