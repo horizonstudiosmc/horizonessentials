@@ -1,0 +1,7 @@
+name: Horizon Essentials
+version: '${version}'
+main: org.horizon.plugins.horizonessentials.he
+api-version: 1.19
+prefix: HE
+authors: [ eternity ]
+description: A new essentials
