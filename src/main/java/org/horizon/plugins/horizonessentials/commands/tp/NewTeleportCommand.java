@@ -37,8 +37,6 @@ public class NewTeleportCommand implements CommandExecutor {
 
             player.sendMessage(he.getPrefix() + ChatColor.translateAlternateColorCodes('&', "&fopened teleportation GUI, if you don't want to do this, use a argument"));
             NewTeleportGUI teleportGUI = new NewTeleportGUI(player);
-            GUIManager manager = new GUIManager();
-            manager.setGui(teleportGUI.inv, teleportGUI);
         }
         return false;
     }

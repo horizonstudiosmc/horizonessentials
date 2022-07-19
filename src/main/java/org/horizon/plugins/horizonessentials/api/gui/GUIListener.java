@@ -5,9 +5,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.horizon.plugins.horizonessentials.HE;
 
 public class GUIListener implements Listener {
-    private final GUIManager guiManager = new GUIManager();
+    private final GUIManager guiManager = HE.manager;
 
     @EventHandler
     public void onClose(InventoryCloseEvent event) {
@@ -17,12 +18,9 @@ public class GUIListener implements Listener {
     @EventHandler
     public void onClick(InventoryClickEvent event) {
         HorizonGUI gui = guiManager.getGui(event.getInventory());
-        Bukkit.getLogger().info("testno");
-        Bukkit.getLogger().info(gui.toString());
-        Bukkit.getLogger().info(event.getInventory().toString());
         if(gui != null) {
-            Bukkit.getLogger().info("test");
-            gui.handleEvent(event);
+            if (event.isLeftClick()) gui.handleEventLeftClick(event);
+            if (event.isRightClick()) gui.handleEventRightClick(event);
         }
     }
 }
