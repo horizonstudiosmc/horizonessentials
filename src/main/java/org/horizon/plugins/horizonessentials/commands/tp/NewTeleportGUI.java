@@ -5,14 +5,16 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.horizon.plugins.horizonessentials.HE;
 import org.horizon.plugins.horizonessentials.api.gui.HorizonGUI;
 import org.horizon.plugins.horizonessentials.api.sound.EasySound;
-import org.horizon.plugins.horizonessentials.HE;
 
-public class NewTeleportGUI extends HorizonGUI {
+public class NewTeleportGUI extends HorizonGUI implements Listener {
 
     public NewTeleportGUI(Player player) {
 
@@ -31,8 +33,10 @@ public class NewTeleportGUI extends HorizonGUI {
         }
         openInv(player);
     }
+
+
     @Override
-    public void inventoryEvent(InventoryClickEvent event, Player player) {
+    public void invClick(InventoryClickEvent event, Player player) {
         event.setCancelled(true);
         Player pl = Bukkit.getPlayer(inv.getItem(event.getSlot()).getItemMeta().getDisplayName());
         if (!(pl == null)) {
@@ -40,6 +44,14 @@ public class NewTeleportGUI extends HorizonGUI {
             player.teleport(pl);
             EasySound.playSoundAtPlayer(player, Sound.ITEM_GOAT_HORN_SOUND_6);
             player.sendMessage();
+        }
+    }
+
+    @EventHandler
+    public void onInvClick(InventoryClickEvent event) {
+        Player player = (Player) event.getWhoClicked();
+        if (event.getInventory() == inv) {
+            invClick(event, player);
         }
     }
 }

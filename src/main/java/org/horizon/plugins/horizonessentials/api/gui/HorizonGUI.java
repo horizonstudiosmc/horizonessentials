@@ -1,14 +1,16 @@
 package org.horizon.plugins.horizonessentials.api.gui;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.horizon.plugins.horizonessentials.api.sound.EasySound;
 
-public abstract class HorizonGUI implements Listener {
+public abstract class HorizonGUI {
 
     public Inventory inv;
 
@@ -30,15 +32,9 @@ public abstract class HorizonGUI implements Listener {
         player.openInventory(inv);
     }
 
-    public abstract void inventoryEvent(InventoryClickEvent event, Player player);
+    public abstract void invClick(InventoryClickEvent event, Player player);
 
-    @EventHandler
-    private void onInventoryClick(InventoryClickEvent event) {
-        Player player = (Player) event.getWhoClicked();
-        if (event.getInventory() == inv) {
-            inventoryEvent(event, player);
-        }
-    }
+
 
 
 }

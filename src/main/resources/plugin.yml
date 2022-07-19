@@ -1,7 +1,12 @@
-name: Horizon Essentials
+name: HorizonEssentials
 version: '${version}'
 main: org.horizon.plugins.horizonessentials.HE
 api-version: 1.19
 prefix: HE
 authors: [ eternity ]
 description: A new essentials
+
+commands:
+  tp:
+    aliases:
+      - teleport

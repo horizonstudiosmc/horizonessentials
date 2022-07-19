@@ -2,8 +2,9 @@ package org.horizon.plugins.horizonessentials;
 
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.horizon.plugins.horizonessentials.commands.tp.NewTeleportCommand;
 
-public final class HE extends JavaPlugin {
+public class HE extends JavaPlugin {
 
     public HE() {
 
@@ -13,6 +14,8 @@ public final class HE extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         saveDefaultConfig();
+        getCommand("tp").setExecutor(new NewTeleportCommand());
+        getServer().getPluginManager().registerEvents(new NewTeleportCommand(), this);
     }
 
     @Override
