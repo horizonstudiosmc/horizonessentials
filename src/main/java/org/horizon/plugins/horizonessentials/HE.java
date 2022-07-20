@@ -22,6 +22,7 @@ public class HE extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         instance = this;
+        Bstats.register(this);
         combatManager = new CombatManager();
         manager = new GUIManager();
         teleportationManager = new TeleportationManager();
