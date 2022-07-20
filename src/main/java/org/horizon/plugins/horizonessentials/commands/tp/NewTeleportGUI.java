@@ -24,7 +24,7 @@ public class NewTeleportGUI implements HorizonGUI {
     public NewTeleportGUI(Player player) {
         inv = Bukkit.createInventory(null, 18, ChatColor.translateAlternateColorCodes('&', "&dPlayer Portal"));
         for (Player p : Bukkit.getOnlinePlayers()) {
-            if (!(p == player)) {
+            if ((p == player)) {
                 ItemStack plItem = new ItemStack(Material.PLAYER_HEAD);
                 SkullMeta meta = (SkullMeta) plItem.getItemMeta();
                 meta.setDisplayName(p.getName());

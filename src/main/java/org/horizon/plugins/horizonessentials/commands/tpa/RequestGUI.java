@@ -9,14 +9,17 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitScheduler;
 import org.horizon.plugins.horizonessentials.HE;
 import org.horizon.plugins.horizonessentials.api.gui.HorizonGUI;
 
 public class RequestGUI implements HorizonGUI {
 
     public Inventory inv;
+    private int taskid;
     Player player;
     Player target;
+    private boolean actiontooken = false;
 
     public RequestGUI(Player player, Player target) {
         this.player = player;
@@ -42,6 +45,10 @@ public class RequestGUI implements HorizonGUI {
         inv.setItem(8, no);
         HE.manager.setGui(inv, this);
         target.openInventory(inv);
+        BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
+        taskid = scheduler.scheduleSyncDelayedTask(HE.instance, () -> {
+            if (actiontooken == false) player.sendMessage(ChatColor.RED + "Request timed out");
+        }, 600);
     }
 
     @Override
@@ -53,6 +60,7 @@ public class RequestGUI implements HorizonGUI {
             player.sendMessage(ChatColor.GREEN + "Accepted");
             target.sendMessage(ChatColor.GREEN + "Accepted");
             target.closeInventory();
+            actiontooken = true;
             return;
         }
         if (event.getSlot() == 8) {
@@ -61,6 +69,7 @@ public class RequestGUI implements HorizonGUI {
             HE.teleportationManager.playerslist.remove(player, target);
             HE.manager.removeGui(event.getInventory());
             target.closeInventory();
+            actiontooken = true;
             return;
         }
     }

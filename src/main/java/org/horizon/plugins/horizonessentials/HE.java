@@ -2,6 +2,7 @@ package org.horizon.plugins.horizonessentials;
 
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.horizon.plugins.horizonessentials.api.combat.CombatManager;
 import org.horizon.plugins.horizonessentials.api.gui.GUIListener;
 import org.horizon.plugins.horizonessentials.api.gui.GUIManager;
 import org.horizon.plugins.horizonessentials.commands.tp.NewTeleportCommand;
@@ -13,6 +14,7 @@ public class HE extends JavaPlugin {
 
     public static HE instance;
     public static TeleportationManager teleportationManager;
+    public static CombatManager combatManager;
     public static GUIManager manager;
 
 
@@ -20,11 +22,13 @@ public class HE extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         instance = this;
+        combatManager = new CombatManager();
         manager = new GUIManager();
         teleportationManager = new TeleportationManager();
         saveDefaultConfig();
         getCommand("tp").setExecutor(new NewTeleportCommand());
         getCommand("tpa").setExecutor(new TPACommand());
+        getServer().getPluginManager().registerEvents(new CombatManager(), this);
         getServer().getPluginManager().registerEvents(new GUIListener(), this);
     }
 
